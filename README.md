@@ -1,2 +1,6 @@
-# llm-based-seq-rec
-Large Language Model based Sequential Recommendation
+# ReasoningRec
+LLM Reasoning based Sequential Recommendation
+
+## Abstract
+
+## Usage
