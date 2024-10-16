@@ -26,7 +26,7 @@ from sklearn.metrics import roc_auc_score
 
 def train(
     # model/data params
-    base_model: str = "baffo32/decapoda-research-llama-7B-hf",  # the only required argument
+    base_model: str = "meta-llama/Llama-2-7b-chat-hf",  # the only required argument
     train_data_path: str = "./data/train.json",
     val_data_path: str = "./data/valid.json",
     output_dir: str = "./lora_llama2_chat/sample_64",
@@ -240,13 +240,13 @@ def train(
         # print(f"len of labels: {labels.shape} --- labels: {labels}")
         # print(f"labels dimension: {len(labels[0])}")
 
-        labels_index = torch.argwhere(torch.bitwise_or(labels == 8241, labels == 3782))
-        gold = torch.where(labels[labels_index[:, 0], labels_index[:, 1]] == 3782, 0, 1)
+        llabels_index = torch.argwhere(torch.bitwise_or(labels == 1939, labels == 3869))
+        gold = torch.where(labels[labels_index[:, 0], labels_index[:, 1]] == 3869, 0, 1)
         labels_index[: , 1] = labels_index[: , 1] - 1
         logits = logits.softmax(dim=-1)
         argmax_indices = torch.argmax(logits, dim=-1)
         # print("Predicted Indices:", argmax_indices)
-        logits = torch.softmax(logits[labels_index[:, 0], labels_index[:, 1]][:,[3782, 8241]], dim = -1)
+        logits = torch.softmax(logits[labels_index[:, 0], labels_index[:, 1]][:,[3869, 1939]], dim = -1)
         # print(logits)
         # print(logits[:, 1][2::3], gold[2::3])
         return logits[:, 1][2::3], gold[2::3]
